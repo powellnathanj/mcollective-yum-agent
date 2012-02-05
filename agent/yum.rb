@@ -7,13 +7,14 @@
 module MCollective
   module Agent
     class Yum<RPC::Agent
-      metadata :name  => "Yum Agent",
-       :description   => "This is an agent for invoking yum actions on nodes",
-       :author        => "Nathan Powell <nathan@nathanpowell.ort>",
-       :license       => "Apache License, Version 2.0",
-       :version       => "1.0",
-       :url           => "http://nathanpowell.org/",
-       :timeout       => 300
+      metadata :name      => "Yum Agent",
+       :description       => "This is an agent for invoking yum actions on nodes",
+       :author            => "Nathan Powell <nathan@nathanpowell.org>",
+       :liberal_borrowing => "From here:  https://github.com/puppetlabs/mcollective-plugins/tree/master/agent/package/agent",
+       :license           => "Apache License, Version 2.0",
+       :version           => "1.0",
+       :url               => "http://nathanpowell.org/",
+       :timeout            => 300
 
       ["install", "remove", "reinstall"].each do |act|
         action act do
