@@ -1,13 +1,13 @@
 mcollective agents and applications for things I need
 
-# First, about the Yum agent:
+### First, about the Yum agent:
 I took most of the code from the packages agent that is available here:
 
   https://github.com/puppetlabs/mcollective-plugins/tree/master/agent/package/agent
 
 I didn't want the apt portions, and I wanted to add an action to update all the currently out of date packages.
 
-Usage Yum agent:
+### Usage Yum agent:
 
 - Install a package on all hosts:
 
