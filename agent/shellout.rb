@@ -6,8 +6,8 @@ module MCollective
   module Agent
     class Shellout<RPC::Agent
       action "so" do 
-	validate :msg, String
-        run("#{request[:msg]}", :stdout => :out, :stderr => :err, :chomp => true)
+	validate :cmd, String
+        run("#{request[:cmd]}", :stdout => :out, :stderr => :err, :chomp => true)
       end
     end
   end
