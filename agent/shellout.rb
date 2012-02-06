@@ -5,7 +5,7 @@
 module MCollective
   module Agent
     class Shellout<RPC::Agent
-      action "so" do 
+      action "cmd" do 
 	validate :cmd, String
         run("#{request[:cmd]}", :stdout => :out, :stderr => :err, :chomp => true)
       end

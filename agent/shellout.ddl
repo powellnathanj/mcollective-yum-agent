@@ -6,7 +6,7 @@ metadata :name      => "A generic shell command agent",
   :url               => "http://nathanpowell.org/",
   :timeout            => 60
 
-action "so" , :description => "Responds on execution" do
+action "cmd" , :description => "Responds on execution" do
   display :always
 
   output :output,
