@@ -25,6 +25,10 @@ Reinstall a package on all hosts:
 
      sudo mco rpc yum reinstall xclock
 
+Check for available updates
+
+     sudo mco rpc yum checkupdates
+
 Patch all hosts to the latest patch level (either by repo, rhn or satellite sync):
 
      sudo mco rpc yum update # note this is the same thing as concurrently running `yum update -y` on ALL hosts 
