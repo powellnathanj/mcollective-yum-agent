@@ -1,5 +1,9 @@
 mcollective agents and applications for things I need
 
+I just started learning/using mcollective, so please vet all code you use from here yourself.  If you find anything remiss please open an issue.
+
+These are only tested against 1.3.2, so if you are using 1.2.1 (the latest stable release, YMMV)
+
 ### First, about the Yum agent:
 I took most of the code from the packages agent that is available here:
 
