@@ -9,23 +9,23 @@ I didn't want the apt portions, and I wanted to add an action to update all the 
 
 ### Usage Yum agent:
 
-- Install a package on all hosts:
+Install a package on all hosts:
 
      sudo mco rpc yum install xclock
 
-- Upgrade a package on all hosts:
+Upgrade a package on all hosts:
 
      sudo mco rpc yum upgrade xclock
 
-- Reinstall a package on all hosts:
+Reinstall a package on all hosts:
 
      sudo mco rpc yum reinstall xclock
 
-- Patch all hosts to the latest patch level (either by repo, rhn or satellite sync):
+Patch all hosts to the latest patch level (either by repo, rhn or satellite sync):
 
      sudo mco rpc yum update # note this is the same thing as concurrently running `yum update -y` on ALL hosts 
 
-- Clean various caches // Note: I borrowed this code from the main mcollective plugins repo 
+Clean various caches // Note: I borrowed this code from the main mcollective plugins repo 
 
      sudo mco rpc yum clean # This is the same as the next one, if you don't have package.yum_clean_mode in your config
      sudo mco rpc yum clean mode=all
