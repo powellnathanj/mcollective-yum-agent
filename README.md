@@ -25,7 +25,7 @@ Reinstall a package on all hosts:
 
      sudo mco rpc yum reinstall xclock
 
-Check for available updates
+Check for available updates:
 
      sudo mco rpc yum checkupdates
 
@@ -33,7 +33,7 @@ Patch all hosts to the latest patch level (either by repo, rhn or satellite sync
 
      sudo mco rpc yum update # note this is the same thing as concurrently running `yum update -y` on ALL hosts 
 
-Clean various caches // Note: I borrowed this code from the main mcollective plugins repo 
+Clean various caches // Note: I borrowed this code from the main mcollective plugins repo:
 
      sudo mco rpc yum clean # This defaults to all if package.yum_clean_mode set
      sudo mco rpc yum clean mode=all
