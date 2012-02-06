@@ -5,11 +5,11 @@ I just started learning/using mcollective, so please vet all code you use from h
 These are only tested against 1.3.2, so if you are using 1.2.1 (the latest stable release, YMMV)
 
 ### First, about the Yum agent:
-I took most of the code from the packages agent that is available here:
+I made liberal use of the code contained in the main mcollective repo:
 
   https://github.com/puppetlabs/mcollective-plugins/tree/master/agent/package/agent
 
-I didn't want the apt portions, and I wanted to add an action to update all the currently out of date packages.
+However, I wanted it to be yum-centric for my environment.
 
 ### Usage Yum agent:
 
