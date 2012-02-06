@@ -27,7 +27,7 @@ Patch all hosts to the latest patch level (either by repo, rhn or satellite sync
 
 Clean various caches // Note: I borrowed this code from the main mcollective plugins repo 
 
-     sudo mco rpc yum clean # This is the same as the next one, if you don't have package.yum_clean_mode in your config
+     sudo mco rpc yum clean # This defaults to all if package.yum_clean_mode set
      sudo mco rpc yum clean mode=all
      sudo mco rpc yum clean mode=headers
      sudo mco rpc yum clean mode=packages
