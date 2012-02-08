@@ -29,7 +29,7 @@ module MCollective
         reply[:exitcode] = run("/usr/bin/yum update -y", :stdout => :output, :chomp => true)
       end
 
-      action "checkupdates" do
+      action "check-update" do
         reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
         reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
 

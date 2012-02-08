@@ -27,7 +27,7 @@ Reinstall a package on all hosts:
 
 Check for available updates:
 
-     sudo mco rpc yum checkupdates
+     sudo mco rpc yum check-update
 
 Patch all hosts to the latest patch level (either by repo, rhn or satellite sync):
 

@@ -38,7 +38,7 @@ action "update", :description => "Update all packages to current patch levels" d
     :display_as  => "Output"
 end
 
-action "checkupdates", :description => "Check for outdated packages" do
+action "check-update", :description => "Check for outdated packages" do
   display :always
 
   output :output,
