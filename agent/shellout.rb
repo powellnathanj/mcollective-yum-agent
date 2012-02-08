@@ -5,6 +5,13 @@
 module MCollective
   module Agent
     class Shellout<RPC::Agent
+      metadata :name  => "Remote arbitrary shell execution",
+        :description  => "An agent for executing shell commands (like the 'for i in $(whateevr)'...that you started using mco to get away from..but concurrent!)",
+        :author       => "Nathan Powell <nathan@nathanpowell.org>",
+        :license      => "Apache License, Version 2.0",
+        :version      => "1.0",
+        :url          => "http://nathanpowell.org/",
+        :timeout      => 90
       action "cmd" do 
 	validate :cmd, String
         run("#{request[:cmd]}", :stdout => :out, :stderr => :err, :chomp => true)
