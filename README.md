@@ -33,6 +33,10 @@ Patch all hosts to the latest patch level (either by repo, rhn or satellite sync
 
      sudo mco rpc yum update # note this is the same thing as concurrently running `yum update -y` on ALL hosts 
 
+Stage patches on servers (that have the downloadonly plugin)
+  
+     sudo mco rpc yum downloadonly
+
 Clean various caches // Note: I borrowed this code from the main mcollective plugins repo:
 
      sudo mco rpc yum clean # This defaults to all if package.yum_clean_mode set
