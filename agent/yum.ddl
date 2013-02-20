@@ -38,6 +38,14 @@ action "update", :description => "Update all packages to current patch levels" d
     :display_as  => "Output"
 end
 
+action "downloadonly", :description => "Stage packages on individual nodes" do
+  display :always
+
+  output :output,
+    :description => "Output from Yum",
+    :display_as  => "Output"
+end
+
 action "check-update", :description => "Check for outdated packages" do
   display :always
 

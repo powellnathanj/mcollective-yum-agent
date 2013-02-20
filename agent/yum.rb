@@ -29,6 +29,13 @@ module MCollective
         reply[:exitcode] = run("/usr/bin/yum update -y", :stdout => :output, :chomp => true)
       end
 
+      # If you install the yum downloadonly plugin this can speed up patching by allowing you to 
+      # pre-stage patches before your window.
+      action "downloadonly" do
+        reply.fail! "downloadonly plugin not found!" unless File.exist?("/usr/lib/yum-plugins/downloadonly.py")
+        reply[:exitcode] = run("/usr/bin/yum update -y --downloadonly", :stdout => :output, :chomp => true)
+      end
+
       action "check-update" do
         reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
         reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
