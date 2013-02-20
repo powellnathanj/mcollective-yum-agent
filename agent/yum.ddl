@@ -79,3 +79,4 @@ action "clean", :description => "Clean the yum cache" do
     :description => "The exitcode from the yum command",
     :display_as => "Exit Code"
 end
+
