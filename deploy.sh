@@ -5,4 +5,3 @@ sudo cp agent/* /etc/puppet/environments/lab/modules/mcollective/files/plugins/a
 sudo cp application/* /etc/puppet/environments/lab/modules/mcollective/files/plugins/applications/
 sudo cp agent/* /usr/libexec/mcollective/mcollective/agent/
 sudo cp application/* /usr/libexec/mcollective/mcollective/application/
-#mco rpc shellout cmd cmd='puppet agent --test' --wf environment=lab
