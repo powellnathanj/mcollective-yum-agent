@@ -34,7 +34,6 @@ module MCollective
       action "downloadonly" do
         reply.fail! "downloadonly plugin not found!" unless File.exist?("/usr/lib/yum-plugins/downloadonly.py")
         if request[:package]
-          run("echo 'foobar' >> /tmp/hellothere")
           reply[:exitcode] = run("/usr/bin/yum install #{request[:package]} -y --downloadonly", :stdout => :output, :chomp => true)
         else
           reply[:exitcode] = run("/usr/bin/yum update -y --downloadonly", :stdout => :output, :chomp => true)
