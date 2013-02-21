@@ -13,7 +13,7 @@ module MCollective
         :url          => "http://nathanpowell.org/",
         :timeout      => 90
       action "cmd" do 
-	validate :cmd, String
+	      validate :cmd, String
         run("#{request[:cmd]}", :stdout => :out, :stderr => :err, :chomp => true)
       end
     end
