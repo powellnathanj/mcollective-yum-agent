@@ -25,6 +25,10 @@ Reinstall a package on all hosts:
 
      sudo mco rpc yum reinstall xclock
 
+Install multiple packages on all hosts:
+
+     sudo mco rpc yum install package="package1 package2 package3"
+
 Check for available updates:
 
      sudo mco rpc yum check-update
@@ -51,6 +55,10 @@ Clean various caches // Note: I borrowed this code from the main mcollective plu
      sudo mco rpc yum clean mode=dbcache
      sudo mco rpc yum clean mode=plugins
      sudo mco rpc yum clean mode=expire-cache
+
+Downgrade multiple packages on machines, In this example puppet star will downgrade both puppet client and puppet server, Facter will also be downgraded. This is useful for downgrading packages with dependencies on others that would otherwise crash out unless the dependant package is also downgraded. 
+
+     sudo mco rpc yum downgrade package="puppet*3.4.3-1.el5 facter-1.7.5-1.el5"
   
 
 ### Usage Shellout agent:

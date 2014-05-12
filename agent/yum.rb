@@ -16,7 +16,7 @@ module MCollective
        :url               => "http://nathanpowell.org/",
        :timeout            => 300
 
-      ["install", "remove", "reinstall"].each do |act|
+      ["install", "downgrade", "remove", "reinstall"].each do |act|
         action act do
           validate :package, :shellsafe
           do_yum_action(request[:package], act.to_sym)
