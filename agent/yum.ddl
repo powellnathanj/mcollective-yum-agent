@@ -15,7 +15,7 @@ action "simpleresponse" , :description => "Responds on execution" do
     :display_as  => "Output"
 end
 
-["install", "remove", "reinstall"].each do |act|
+["install", "downgrade", "remove", "reinstall"].each do |act|
     action act, :description => "#{act.capitalize} a package" do
         input :package,
               :prompt      => "Package Name",
