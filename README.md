@@ -15,15 +15,15 @@ However, I wanted it to be yum-centric for my environment.
 
 Install a package on all hosts:
 
-     sudo mco rpc yum install xclock
+     sudo mco rpc yum install package=xclock
 
-Upgrade a package on all hosts:
+Update a package on all hosts:
 
-     sudo mco rpc yum upgrade xclock
+     sudo mco rpc yum update package=xclock
 
 Reinstall a package on all hosts:
 
-     sudo mco rpc yum reinstall xclock
+     sudo mco rpc yum reinstall package=xclock
 
 Install multiple packages on all hosts:
 
