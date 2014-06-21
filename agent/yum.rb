@@ -23,10 +23,18 @@ module MCollective
         end
       end
 
-      # Not sure how I feel about this yet, but I do what the functionality
+      # Not sure how I feel about this yet, but I do want the functionality
       action "update" do
         reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
-        reply[:exitcode] = run("/usr/bin/yum update -y", :stdout => :output, :chomp => true)
+        if request[:package]
+          validate :package, :shellsafe
+          do_yum_action(request[:package], :update)
+        else
+          # This is still dangerous, if you accidently misspell `package=...`
+          # it will default to `yum update -y` but there is no nice way around
+          # this: https://tickets.puppetlabs.com/browse/MCO-55
+          reply[:exitcode] = run("/usr/bin/yum update -y", :stdout => :output, :chomp => true)
+        end
       end
 
       # If you install the yum downloadonly plugin this can speed up patching by allowing you to 
@@ -34,6 +42,7 @@ module MCollective
       action "downloadonly" do
         reply.fail! "downloadonly plugin not found!" unless File.exist?("/usr/lib/yum-plugins/downloadonly.py")
         if request[:package]
+          validate :package, :shellsafe
           reply[:exitcode] = run("/usr/bin/yum install #{request[:package]} -y --downloadonly", :stdout => :output, :chomp => true)
         else
           reply[:exitcode] = run("/usr/bin/yum update -y --downloadonly", :stdout => :output, :chomp => true)

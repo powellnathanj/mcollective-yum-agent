@@ -32,7 +32,15 @@ end
 end
 
 
-action "update", :description => "Update all packages to current patch levels" do
+action "update", :description => "Update all packages or individual packages to current patch levels" do
+  input :package,
+    :prompt      => "Package Name",
+    :description => "Package to update",
+    :type        => :string,
+    :validation  => '.',
+    :optional    => true,
+    :maxlength   => 90
+
   output :output,
     :description => "Output from Yum",
     :display_as  => "Output"
