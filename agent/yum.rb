@@ -23,6 +23,15 @@ module MCollective
         end
       end
 
+      action "list" do 
+        reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
+        opts = []
+        if request[:options]
+          opts = request[:options]
+        end
+        reply[:exitcode] = run("/usr/bin/yum list #{opts}", :stdout => :output, :chomp => true)
+      end
+
       # Not sure how I feel about this yet, but I do want the functionality
       action "update" do
         reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")

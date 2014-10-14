@@ -31,6 +31,13 @@ end
     end
 end
 
+action "list", :description => "List all packages" do
+  display :always
+
+  output :output,
+    :description => "Output from Yum",
+    :display_as  => "Output"
+end
 
 action "update", :description => "Update all packages or individual packages to current patch levels" do
   input :package,

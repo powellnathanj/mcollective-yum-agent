@@ -44,6 +44,12 @@ Stage a specfic package on servers (that have the downloadonly plugin)
 
     sudo mco rpc yum downloadonly package=xclock
 
+List packages
+  
+    sudo mco rpc yum list # defaults to all
+    sudo mco rpc yum list options="installed"
+    sudo mco rpc yum list options="kernel"
+
 Clean various caches // Note: I borrowed this code from the main mcollective plugins repo:
 
     sudo mco rpc yum clean # This defaults to all if package.yum_clean_mode set
