@@ -24,17 +24,29 @@ module MCollective
       end
 
       action "list" do 
-        reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
-        opts = []
-        if request[:options]
-          opts = request[:options]
+        check_for_yum
+     
+        valid_options = ['installed', 'all', 'available', 'extras', 'obsoletes', 'updates']
+        args = ""
+
+        if request[:options] 
+          if valid_options.include? request[:options]
+            args + "#{request[:options]} "          
+          else
+            reply.fail! "Invalid option: #{request[:options]}"
+          end
         end
-        reply[:exitcode] = run("/usr/bin/yum list #{opts}", :stdout => :output, :chomp => true)
+
+        if request[:packages]
+          args + "#{request[:packages]}"
+        end
+
+        reply[:exitcode] = run("/usr/bin/yum list #{args}", :stdout => :output, :chomp => true)
       end
 
       # Not sure how I feel about this yet, but I do want the functionality
       action "update" do
-        reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
+        check_for_yum
         if request[:package]
           validate :package, :shellsafe
           do_yum_action(request[:package], :update)
@@ -49,6 +61,7 @@ module MCollective
       # If you install the yum downloadonly plugin this can speed up patching by allowing you to 
       # pre-stage patches before your window.
       action "downloadonly" do
+        check_for_yum
         reply.fail! "downloadonly plugin not found!" unless File.exist?("/usr/lib/yum-plugins/downloadonly.py")
         if request[:package]
           validate :package, :shellsafe
@@ -59,7 +72,8 @@ module MCollective
       end
 
       action "check-update" do
-        reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
+        check_for_yum
+
         reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
 
         if reply[:exitcode] == 0
@@ -73,7 +87,7 @@ module MCollective
       end
 
       action "clean" do
-        reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
+        check_for_yum
 
         if request[:mode]
           clean_mode = request[:mode]
@@ -92,8 +106,12 @@ module MCollective
 
       # Helper methods
       private
-      def do_yum_action(package, action)
+      def check_for_yum
         reply.fail! "Cannot find yum at /usr/bin/yum" unless File.exist?("/usr/bin/yum")
+      end
+
+      def do_yum_action(package, action)
+        check_for_yum
 
         reply[:exitcode] = run("/usr/bin/yum #{action} #{package} -y", :stdout => :output, :chomp => true)
       end

@@ -48,7 +48,7 @@ List packages
   
     sudo mco rpc yum list # defaults to all
     sudo mco rpc yum list options="installed"
-    sudo mco rpc yum list options="kernel"
+    sudo mco rpc yum list options="all" packages="kernel"
 
 Clean various caches // Note: I borrowed this code from the main mcollective plugins repo:
 
