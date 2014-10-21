@@ -47,7 +47,7 @@ Stage a specfic package on servers (that have the downloadonly plugin)
 List packages
   
     sudo mco rpc yum list # defaults to all
-    sudo mco rpc yum list option="installed"
+    sudo mco rpc yum list option="installed" # valid options are: 'installed', 'all', 'available', 'extras', 'obsoletes', 'updates'
     sudo mco rpc yum list option="all" packages="kernel"
 
 Clean various caches // Note: I borrowed this code from the main mcollective plugins repo:
