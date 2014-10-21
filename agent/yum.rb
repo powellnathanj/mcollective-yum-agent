@@ -31,14 +31,14 @@ module MCollective
 
         if request[:option] 
           if valid_options.include? request[:option]
-            args + "#{request[:option]} "          
+            args << "#{request.data[:option]} "
           else
-            reply.fail! "Invalid option: #{request[:option]}"
+            reply.fail! "Invalid option: #{request.data[:option]}"
           end
         end
 
         if request[:packages]
-          args + "#{request[:packages]}"
+          args << " #{request.data[:packages]} "
         end
 
         reply[:exitcode] = run("/usr/bin/yum list #{args}", :stdout => :output, :chomp => true)
