@@ -29,11 +29,11 @@ module MCollective
         valid_options = ['installed', 'all', 'available', 'extras', 'obsoletes', 'updates']
         args = ""
 
-        if request[:options] 
-          if valid_options.include? request[:options]
-            args + "#{request[:options]} "          
+        if request[:option] 
+          if valid_options.include? request[:option]
+            args + "#{request[:option]} "          
           else
-            reply.fail! "Invalid option: #{request[:options]}"
+            reply.fail! "Invalid option: #{request[:option]}"
           end
         end
 
