@@ -12,7 +12,7 @@ This repository will only contain the Yum agent, while I have moved the shellout
 
 ## Install
 
-Install via config management
+Install via config management via any pattern you prefer.  There is an included spec file if you'd like to roll an rpm and deploy via config management with a package.
 
 ## Usage
 
