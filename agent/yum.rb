@@ -38,6 +38,7 @@ module MCollective
         end
 
         if request[:packages]
+          validate :packages, :shellsafe
           args << " #{request.data[:packages]} "
         end
 
