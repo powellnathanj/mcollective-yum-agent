@@ -14,7 +14,7 @@ module MCollective
        :license           => "Apache License, Version 2.0",
        :version           => "1.0",
        :url               => "http://nathanpowell.org/",
-       :timeout            => 300
+       :timeout           => 600
 
       ["install", "downgrade", "remove", "reinstall"].each do |act|
         action act do
