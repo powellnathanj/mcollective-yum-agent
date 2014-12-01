@@ -46,7 +46,7 @@ action "update", :description => "Update all packages or individual packages to 
     :type        => :string,
     :validation  => '.',
     :optional    => true,
-    :maxlength   => 90
+    :maxlength   => 0
 
   output :output,
     :description => "Output from Yum",
