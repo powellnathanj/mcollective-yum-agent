@@ -23,13 +23,13 @@ module MCollective
         end
       end
 
-      action "list" do 
+      action "list" do
         check_for_yum
-     
+
         valid_options = ['installed', 'all', 'available', 'extras', 'obsoletes', 'updates']
         args = ""
 
-        if request[:option] 
+        if request[:option]
           if valid_options.include? request[:option]
             args << "#{request.data[:option]} "
           else
