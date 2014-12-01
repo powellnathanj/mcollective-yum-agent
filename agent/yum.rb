@@ -72,7 +72,7 @@ module MCollective
         end
       end
 
-      action "check-update" do
+      action "check_update" do
         check_for_yum
 
         reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)

@@ -61,7 +61,7 @@ action "downloadonly", :description => "Stage packages on individual nodes" do
     :display_as  => "Output"
 end
 
-action "check-update", :description => "Check for outdated packages" do
+action "check_update", :description => "Check for outdated packages" do
   display :always
 
   output :output,
@@ -94,4 +94,3 @@ action "clean", :description => "Clean the yum cache" do
     :description => "The exitcode from the yum command",
     :display_as => "Exit Code"
 end
-
