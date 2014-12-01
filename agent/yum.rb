@@ -119,11 +119,13 @@ module MCollective
 
       def do_outdated_packages(packages)
         outdated_pkgs = []
-        packages.strip.each_line do |line|
-          # Don't handle obsoleted packages for now
-          break if line =~ /^Obsoleting\sPackages/i
-
-          pkg, ver, repo = line.split
+        if packages.match(/^Obsoleting\sPackages/)
+          cleaned_packages = packages[/(.*?)(?:Obsoleting\sPackages).*/m, 1]
+        else
+          cleaned_packages = packages.strip
+        end
+        cleaned_packages.scan(/\s*(\S+)\s*(\S+)\s*(\S+)/).each do |package|
+          pkg, ver, repo = package
           if pkg && ver && repo
             pkginfo = { :package => pkg.strip,
               :version => ver.strip,
@@ -133,7 +135,7 @@ module MCollective
           end
         end
         outdated_pkgs
-      end      
+      end
     end
   end
 end
