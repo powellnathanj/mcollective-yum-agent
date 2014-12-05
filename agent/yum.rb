@@ -72,18 +72,21 @@ module MCollective
         end
       end
 
-      action "check_update" do
-        check_for_yum
+      # https://github.com/slaney/mcollective-yum-agent/pull/4
+      ["check_update", "check-update"].each do |act|
+        action act do
+          check_for_yum
 
-        reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
+          reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
 
-        if reply[:exitcode] == 0
-          reply[:outdated_packages] = []
-          # Exit code 100 means package updates available
-        elsif reply[:exitcode] == 100
-          reply[:outdated_packages] = do_outdated_packages(reply[:output])
-        else
-          reply.fail! "`yum check-update` failed with exit code: #{reply[:exitcode]}"
+          if reply[:exitcode] == 0
+            reply[:outdated_packages] = []
+            # Exit code 100 means package updates available
+          elsif reply[:exitcode] == 100
+            reply[:outdated_packages] = do_outdated_packages(reply[:output])
+          else
+            reply.fail! "`yum check-update` failed with exit code: #{reply[:exitcode]}"
+          end
         end
       end
 

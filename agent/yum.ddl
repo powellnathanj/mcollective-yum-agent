@@ -61,21 +61,24 @@ action "downloadonly", :description => "Stage packages on individual nodes" do
     :display_as  => "Output"
 end
 
-action "check_update", :description => "Check for outdated packages" do
-  display :always
+# https://github.com/slaney/mcollective-yum-agent/pull/4
+["check_update", "check-update"].each do |act|
+  action act, :description => "Check for outdated packages" do
+    display :always
 
-  output :output,
-    :description => "Output from Yum",
-    :display_as  => "Output"
+    output :output,
+      :description => "Output from Yum",
+      :display_as  => "Output"
 
-  output :oudated_packages,
-    :description => "Outdated packages",
-    :display_as  => "Outdated Packages"
+    output :oudated_packages,
+      :description => "Outdated packages",
+      :display_as  => "Outdated Packages"
 
-  output :exitcode,
-    :description => "The exitcode from the yum command",
-    :display_as => "Exit Code"
+    output :exitcode,
+      :description => "The exitcode from the yum command",
+      :display_as => "Exit Code"
 
+  end
 end
 
 action "clean", :description => "Clean the yum cache" do
