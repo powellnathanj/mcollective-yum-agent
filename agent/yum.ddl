@@ -1,11 +1,11 @@
-  metadata :name      => "Yum Agent",
-   :description       => "This is an agent for invoking yum actions on nodes",
-   :author            => "Nathan Powell <nathan@nathanpowell.org>",
-   :liberal_borrowing => "From here:  https://github.com/puppetlabs/mcollective-plugins/tree/master/agent/package/agent",
-   :license           => "Apache License, Version 2.0",
-   :version           => "1.0",
-   :url               => "http://nathanpowell.org/",
-   :timeout            => 300
+metadata :name       => "Yum Agent",
+  :description       => "This is an agent for invoking yum actions on nodes",
+  :author            => "Nathan Powell <nathan@nathanpowell.org>",
+  :liberal_borrowing => "From here:  https://github.com/puppetlabs/mcollective-plugins/tree/master/agent/package/agent",
+  :license           => "Apache License, Version 2.0",
+  :version           => "1.0",
+  :url               => "http://nathanpowell.org/",
+  :timeout           => 600
 
 action "simpleresponse" , :description => "Responds on execution" do
   display :always
@@ -46,7 +46,7 @@ action "update", :description => "Update all packages or individual packages to 
     :type        => :string,
     :validation  => '.',
     :optional    => true,
-    :maxlength   => 90
+    :maxlength   => 0
 
   output :output,
     :description => "Output from Yum",
@@ -61,21 +61,24 @@ action "downloadonly", :description => "Stage packages on individual nodes" do
     :display_as  => "Output"
 end
 
-action "check-update", :description => "Check for outdated packages" do
-  display :always
+# https://github.com/slaney/mcollective-yum-agent/pull/4
+["check_update", "check-update"].each do |act|
+  action act, :description => "Check for outdated packages" do
+    display :always
 
-  output :output,
-    :description => "Output from Yum",
-    :display_as  => "Output"
+    output :output,
+      :description => "Output from Yum",
+      :display_as  => "Output"
 
-  output :oudated_packages,
-    :description => "Outdated packages",
-    :display_as  => "Outdated Packages"
+    output :oudated_packages,
+      :description => "Outdated packages",
+      :display_as  => "Outdated Packages"
 
-  output :exitcode,
-    :description => "The exitcode from the yum command",
-    :display_as => "Exit Code"
+    output :exitcode,
+      :description => "The exitcode from the yum command",
+      :display_as => "Exit Code"
 
+  end
 end
 
 action "clean", :description => "Clean the yum cache" do
@@ -94,4 +97,3 @@ action "clean", :description => "Clean the yum cache" do
     :description => "The exitcode from the yum command",
     :display_as => "Exit Code"
 end
-

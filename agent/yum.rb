@@ -14,7 +14,7 @@ module MCollective
        :license           => "Apache License, Version 2.0",
        :version           => "1.0",
        :url               => "http://nathanpowell.org/",
-       :timeout            => 300
+       :timeout           => 600
 
       ["install", "downgrade", "remove", "reinstall"].each do |act|
         action act do
@@ -23,13 +23,13 @@ module MCollective
         end
       end
 
-      action "list" do 
+      action "list" do
         check_for_yum
-     
+
         valid_options = ['installed', 'all', 'available', 'extras', 'obsoletes', 'updates']
         args = ""
 
-        if request[:option] 
+        if request[:option]
           if valid_options.include? request[:option]
             args << "#{request.data[:option]} "
           else
@@ -72,18 +72,21 @@ module MCollective
         end
       end
 
-      action "check-update" do
-        check_for_yum
+      # https://github.com/slaney/mcollective-yum-agent/pull/4
+      ["check_update", "check-update"].each do |act|
+        action act do
+          check_for_yum
 
-        reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
+          reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
 
-        if reply[:exitcode] == 0
-          reply[:outdated_packages] = []
-          # Exit code 100 means package updates available
-        elsif reply[:exitcode] == 100
-          reply[:outdated_packages] = do_outdated_packages(reply[:output])
-        else
-          reply.fail! "`yum check-update` failed with exit code: #{reply[:exitcode]}"
+          if reply[:exitcode] == 0
+            reply[:outdated_packages] = []
+            # Exit code 100 means package updates available
+          elsif reply[:exitcode] == 100
+            reply[:outdated_packages] = do_outdated_packages(reply[:output])
+          else
+            reply.fail! "`yum check-update` failed with exit code: #{reply[:exitcode]}"
+          end
         end
       end
 
@@ -119,11 +122,13 @@ module MCollective
 
       def do_outdated_packages(packages)
         outdated_pkgs = []
-        packages.strip.each_line do |line|
-          # Don't handle obsoleted packages for now
-          break if line =~ /^Obsoleting\sPackages/i
-
-          pkg, ver, repo = line.split
+        if packages.match(/^Obsoleting\sPackages/)
+          cleaned_packages = packages[/(.*?)(?:Obsoleting\sPackages).*/m, 1]
+        else
+          cleaned_packages = packages.strip
+        end
+        cleaned_packages.scan(/\s*(\S+)\s*(\S+)\s*(\S+)/).each do |package|
+          pkg, ver, repo = package
           if pkg && ver && repo
             pkginfo = { :package => pkg.strip,
               :version => ver.strip,
@@ -133,7 +138,7 @@ module MCollective
           end
         end
         outdated_pkgs
-      end      
+      end
     end
   end
 end
