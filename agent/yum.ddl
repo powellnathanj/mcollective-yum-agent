@@ -1,4 +1,4 @@
-metadata :name       => "Yum Agent",
+metadata :name       => "Yum",
   :description       => "This is an agent for invoking yum actions on nodes",
   :author            => "Nathan Powell <nathan@nathanpowell.org>",
   :liberal_borrowing => "From here:  https://github.com/puppetlabs/mcollective-plugins/tree/master/agent/package/agent",
