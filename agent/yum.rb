@@ -79,7 +79,7 @@ module MCollective
 
           reply[:exitcode] = run("/usr/bin/yum -q check-update", :stdout => :output, :chomp => true)
 
-          if reply[:exitcode] == 0
+          if reply[:exitcode].zero?
             reply[:outdated_packages] = []
             # Exit code 100 means package updates available
           elsif reply[:exitcode] == 100
@@ -93,11 +93,11 @@ module MCollective
       action "clean" do
         check_for_yum
 
-        if request[:mode]
-          clean_mode = request[:mode]
-        else
-          clean_mode = @config.pluginconf["package.yum_clean_mode"] || "all"
-        end
+        clean_mode = if request[:mode]
+                       request[:mode]
+                     else
+                       @config.pluginconf["package.yum_clean_mode"] || "all"
+                     end
 
         if ["all", "headers", "packages", "metadata", "dbcache", "plugins", "expire-cache"].include?(clean_mode)
             reply[:exitcode] = run("/usr/bin/yum clean #{clean_mode}", :stdout => :output, :chomp => true)
@@ -105,7 +105,7 @@ module MCollective
           reply.fail! "Unsupported yum clean mode: #{clean_mode}"
         end
 
-        reply.fail! "Yum clean failed, exit code was #{reply[:exitcode]}" unless reply[:exitcode] == 0
+        reply.fail! "Yum clean failed, exit code was #{reply[:exitcode]}" unless reply[:exitcode].zero?
       end
 
       # Helper methods
@@ -122,15 +122,16 @@ module MCollective
 
       def do_outdated_packages(packages)
         outdated_pkgs = []
-        if packages.match(/^Obsoleting\sPackages/)
-          cleaned_packages = packages[/(.*?)(?:Obsoleting\sPackages).*/m, 1]
-        else
-          cleaned_packages = packages.strip
-        end
+        cleaned_packages = if packages =~ /^Obsoleting\sPackages/
+                             packages[/(.*?)(?:Obsoleting\sPackages).*/m, 1]
+                           else
+                             packages.strip
+                           end
         cleaned_packages.scan(/\s*(\S+)\s*(\S+)\s*(\S+)/).each do |package|
           pkg, ver, repo = package
           if pkg && ver && repo
-            pkginfo = { :package => pkg.strip,
+            pkginfo = {
+              :package => pkg.strip,
               :version => ver.strip,
               :repo => repo.strip
             }
