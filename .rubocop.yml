@@ -1,0 +1,78 @@
+AllCops:
+  DisplayCopNames: true
+  Exclude:
+    - test/**/*
+    - sample_files/**/*
+    - manual_tests/**/*
+    - integration-tests/**/*
+  Include:
+    - '**/config.ru'
+    - Vagrantfile
+    - '**/*.ddl'
+  TargetRubyVersion: 2.3
+Lint/Debugger:
+  Exclude:
+    - Rakefile
+    - bin/
+    - exe/
+    - bin/pry_*.rb
+    - bin/pry_*
+Lint/RescueException:
+  Enabled: false
+Metrics/AbcSize:
+  Max: 60
+Metrics/BlockNesting:
+  Max: 4
+Metrics/ClassLength:
+  Max: 1000
+Metrics/CyclomaticComplexity:
+  Max: 30
+Metrics/LineLength:
+  Max: 140
+Metrics/MethodLength:
+  Max: 90
+Metrics/ParameterLists:
+  Max: 15
+Metrics/PerceivedComplexity:
+  Max: 30
+Style/AccessModifierIndentation:
+  EnforcedStyle: outdent
+Style/AlignHash:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/ClassVars:
+  Enabled: false
+Style/CommentAnnotation:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/DoubleNegation:
+  Enabled: false
+Style/EmptyLinesAroundAccessModifier:
+  Enabled: false
+Style/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+Style/EmptyLinesAroundModuleBody:
+  EnforcedStyle: no_empty_lines
+Style/FileName:
+  Exclude:
+    - Brewfile
+    - Gemfile
+    - Gemfile.lock
+    - Vagrantfile
+Style/FormatString:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MutableConstant:
+  Enabled: false
+Style/RaiseArgs:
+  Enabled: false
+Style/SpaceInsideBlockBraces:
+  Enabled: false
+Style/TrailingCommaInLiteral:
+  Enabled: false
+Style/WordArray:
+  Enabled: true
