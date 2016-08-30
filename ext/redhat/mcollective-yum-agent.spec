@@ -1,4 +1,4 @@
-Name: mcollective-yum-agent
+Name: mcollective-yum
 Version: 0.4
 Release: 1%{?dist}
 Summary: MCollective Agent for interacting with the `yum` command
