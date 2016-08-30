@@ -34,8 +34,8 @@ def input_security
         optional:    true
 end
 
-def input_bugfixes
-  input :bugfixes,
+def input_bugfix
+  input :bugfix,
         prompt:      'Include bugfix relevant packages',
         description: 'Include bugfix relevant packages',
         type:        :boolean,
@@ -112,7 +112,7 @@ end
   action act, description: 'Update all packages or individual packages to current patch levels' do
     input_packages
     input_security
-    input_bugfixes
+    input_bugfix
     input_cve
     input_bz
     input_sec_severity
@@ -127,7 +127,7 @@ end
     display :always
     input_packages
     input_security
-    input_bugfixes
+    input_bugfix
     input_cve
     input_bz
     input_sec_severity

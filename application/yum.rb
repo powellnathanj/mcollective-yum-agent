@@ -2,10 +2,8 @@ require 'json'
 
 module MCollective
   class Application
-
     class Yum < MCollective::Application
-
-      description 'Interqact with the yum package manager'
+      description 'Interact with the yum package manager'
 
       # FIXME: complete the usage docs
       usage <<-END_OF_USAGE
@@ -25,9 +23,9 @@ END_OF_USAGE
              arguments:   ['--security'],
              type:        :bool
 
-      option :bugfixes,
+      option :bugfix,
              description: 'Include bugfix relevant packages',
-             arguments:   ['--bugfixes'],
+             arguments:   ['--bugfix'],
              type:        :bool
 
       option :cve,
@@ -100,7 +98,6 @@ END_OF_USAGE
             configuration[param] = configuration[param].join(' ')
           end
         end
-        puts configuration.to_json
       end
 
       def main
@@ -120,17 +117,16 @@ END_OF_USAGE
 
         if options[:output_format] == :json
           puts yum_result.to_json
-          return
+        else
+          yum_result.each do |node|
+            printf "%s:\n", node.results[:sender]
+            # indent all output
+            printf "%s\n", node.results[:data][:output].gsub(%r{^}, "  ")
+          end
+          printrpcstats summarize: true, caption: 'yum %s results' % command
         end
-
-        # FIXME: implement code to summarise and print the output
-        puts 'the output goes here (use --json for now)'
-
-        printrpcstats summarize: true, caption: 'yum %s results' % command
         halt yum.stats
       end
-
     end
-
   end
 end

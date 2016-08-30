@@ -103,7 +103,7 @@ module MCollective
       def generate_args(request_data)
         args = ''
         args = ' --security' if request_data.has_key? :security
-        args = " #{args} --bugfixes" if request_data.has_key? :bugfixes
+        args = " #{args} --bugfix" if request_data.has_key? :bugfix
         if request_data.has_key? :cve
           args = " %{args} " + request_data[:cve].split.map{|item| "--cve #{item}"}.join(' ')
         end
