@@ -119,9 +119,15 @@ END_OF_USAGE
           puts yum_result.to_json
         else
           yum_result.each do |node|
+            # remove any whitespace from the start of the output
+            node.results[:data][:output].gsub!(%r{\A\s+}, '')
+            # remove any whitespace and add a single newline at the end of the output
+            node.results[:data][:output].gsub!(%r{\s*\z}, "\n")
+            # indent all output (add two spaces to the begining of every line)
+            node.results[:data][:output].gsub!(%r{^}, "  ")
+            # now print the output
             printf "%s:\n", node.results[:sender]
-            # indent all output
-            printf "%s\n", node.results[:data][:output].gsub(%r{^}, "  ")
+            printf "%s\n", node.results[:data][:output]
           end
           printrpcstats summarize: true, caption: 'yum %s results' % command
         end
